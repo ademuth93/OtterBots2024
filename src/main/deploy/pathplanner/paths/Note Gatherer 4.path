@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.272,
+        "y": 2.39
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.305850936026196,
+        "y": 2.1355264332150297
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.272,
+        "y": 1.7028743246675677
+      },
+      "prevControl": {
+        "x": 3.2873615296780136,
+        "y": 1.9617260135421175
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 91.00508600525419,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Note Gatherer Paths",
+  "previewStartingState": {
+    "rotation": 89.81902227671972,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

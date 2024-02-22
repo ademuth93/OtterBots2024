@@ -1,0 +1,32 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4291761916857166,
+      "y": 1.6178230554659307
+    },
+    "rotation": 90.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Note Gatherer 3"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Note Gatherer Autos",
+  "choreoAuto": false
+}
