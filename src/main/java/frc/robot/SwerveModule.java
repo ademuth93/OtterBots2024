@@ -96,8 +96,53 @@ public class SwerveModule {
                 ? lastAngle
                 : desiredState.angle;
 
+        // comment out ↓↓
+        // Rotation2d oldAngle = getAngle();
+        // angle = optimizeTurn(oldAngle, angle);
+        // comment out ↑↑
+
         angleController.setReference(angle.getDegrees(), ControlType.kPosition);
         lastAngle = angle;
+    }
+
+    public double makePositiveDegrees(double angle) {
+        // Take arbitrary angle and calculate its equvalent in 0-360 degree range
+        double degrees = angle;
+        degrees = degrees % 360;
+        if (degrees < 0.0) {
+            degrees += 360.;
+        }
+        return degrees;
+    }
+
+    public double makePositiveDegrees(Rotation2d angle) {
+        return makePositiveDegrees(angle.getDegrees());
+    }
+
+    public Rotation2d optimizeTurn(Rotation2d oldAngle, Rotation2d newAngle) {
+        double steerAngle = makePositiveDegrees(newAngle);
+        steerAngle %= 360;
+        if (steerAngle < 0.0) {
+            steerAngle += 360;
+        }
+
+        double difference = steerAngle - oldAngle.getDegrees();
+
+        // Change the target angle so the difference is in the range [-360, 360) instead of [0, 360)
+        if (difference >= 360) {
+            steerAngle -= 360;
+        } else if (difference < -360) {
+            steerAngle += 360;
+        }
+        difference = steerAngle - oldAngle.getDegrees();    
+        
+        // If the difference is greater than 90 deg or less than -90 deg the drive can be inverted so the total
+        // movement of the module is less than 90 deg
+        if (difference > 90 || difference < -90) {
+            steerAngle += 180;
+        }
+
+        return Rotation2d.fromDegrees(makePositiveDegrees(steerAngle));
     }
 
     private Rotation2d getAngle() {
@@ -109,7 +154,8 @@ public class SwerveModule {
     }
 
     public void resetToAbsolute() {
-        double absolutePosition = getCanCoder().getDegrees() - angleOffset;
+        // double absolutePosition = getCanCoder().getDegrees() - angleOffset;
+        double absolutePosition = makePositiveDegrees(getCanCoder().getDegrees() - angleOffset);
         integratedAngleEncoder.setPosition(absolutePosition);
     }
 

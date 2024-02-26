@@ -14,7 +14,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void defaultControl(double shooterSpeed) {
-        frontShooterMotor.set(ControlMode.PercentOutput, -shooterSpeed);
+        frontShooterMotor.set(ControlMode.PercentOutput, shooterSpeed);
     }
 
     public Command autoShooterOutCommand() {

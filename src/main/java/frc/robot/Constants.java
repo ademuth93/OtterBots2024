@@ -21,8 +21,8 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final class Swerve {
         // Drivetrain Constants
-        public static final double trackWidth = Units.inchesToMeters(20.25);
-        public static final double wheelBase = Units.inchesToMeters(26.0);
+        public static final double trackWidth = Units.inchesToMeters(18.5);
+        public static final double wheelBase = Units.inchesToMeters(21);
         public static final double wheelDiameter = Units.inchesToMeters(4.0);
         public static final double wheecCircumference = wheelDiameter * Math.PI;
 
@@ -31,7 +31,7 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 4;
             public static final int canCoderID = 30;
-            public static final double angleOffset = 31.7; // 35.6
+            public static final double angleOffset = 0; // 35.6
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -41,7 +41,7 @@ public final class Constants {
             public static final int driveMotorID = 5;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 31;
-            public static final double angleOffset = 79.2; // 80.4
+            public static final double angleOffset = 0; // 80.4
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -51,7 +51,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 32;
-            public static final double angleOffset = 115.8; // 121.6
+            public static final double angleOffset = 0; // 121.6
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -61,7 +61,7 @@ public final class Constants {
             public static final int driveMotorID = 9;
             public static final int angleMotorID = 10;
             public static final int canCoderID = 33;
-            public static final double angleOffset = -126.5; // -125.6
+            public static final double angleOffset = 0; // -125.6
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
