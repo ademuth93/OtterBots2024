@@ -11,41 +11,52 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Climber extends SubsystemBase {
     private CANSparkMax leftClimberMotor;
     private CANSparkMax rightClimberMotor;
-    private DigitalInput swLeftLimitSwitch;
-    private DigitalInput swRightLimitSwitch;
+    private DigitalInput swBottomLeftLimitSwitch;
+    private DigitalInput swBottomRightLimitSwitch;
+    private DigitalInput swTopLeftLimitSwitch;
+    private DigitalInput swTopRightLimitSwitch;
 
     public Climber() {
         leftClimberMotor = new CANSparkMax(11, MotorType.kBrushless);
         rightClimberMotor = new CANSparkMax(12, MotorType.kBrushless);
-        swLeftLimitSwitch = new DigitalInput(0);
-        swRightLimitSwitch = new DigitalInput(1);
+        swBottomLeftLimitSwitch = new DigitalInput(0);
+        swBottomRightLimitSwitch = new DigitalInput(1);
+        swTopLeftLimitSwitch = new DigitalInput(2);
+        swTopRightLimitSwitch = new DigitalInput(3);
     }
 
     public void defaultControl(double leftClimberSpeed, double rightClimberSpeed) {
-        if (swLeftLimitSwitch.get()) {
-            if (leftClimberSpeed > 0) {
-                leftClimberMotor.set(0.02);
-            } else {
-                leftClimberMotor.set(-leftClimberSpeed);
+        if (swBottomLeftLimitSwitch.get()) {
+            if(leftClimberSpeed > 0) {
+                leftClimberSpeed = 0;                
             }
-        } else {
-            leftClimberMotor.set(-leftClimberSpeed);
         }
-
-        if (swRightLimitSwitch.get()) {
-            if (rightClimberSpeed > 0) {
-                rightClimberMotor.set(0.02);
-            } else {
-                rightClimberMotor.set(rightClimberSpeed);
+        if (swTopLeftLimitSwitch.get()) {
+            if(leftClimberSpeed < 0) {
+                leftClimberSpeed = 0;
             }
-        } else {
-            rightClimberMotor.set(rightClimberSpeed);
         }
+         if (swBottomRightLimitSwitch.get()) {
+            if(rightClimberSpeed > 0) {
+                rightClimberSpeed = 0;                
+            }
+        }
+        if (swTopRightLimitSwitch.get()) {
+            if(rightClimberSpeed < 0) {
+                rightClimberSpeed = 0;
+            }
+        }
+        leftClimberMotor.set(-leftClimberSpeed);
+        rightClimberMotor.set(rightClimberSpeed);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Left Limit Switch", swLeftLimitSwitch.get());
-        SmartDashboard.putBoolean("Right Limit Switch", swRightLimitSwitch.get());
+        SmartDashboard.putBoolean("Bottom Left Limit Switch", swBottomLeftLimitSwitch.get());
+        SmartDashboard.putBoolean("Bottom Right Limit Switch", swBottomRightLimitSwitch.get());
+        SmartDashboard.putBoolean("Top Left Limit Switch", swTopLeftLimitSwitch.get());
+        SmartDashboard.putBoolean("Top Right Limit Switch", swTopRightLimitSwitch.get());
+        SmartDashboard.putNumber("Eric 2", leftClimberMotor.get());
+        SmartDashboard.putNumber("Eric 3", rightClimberMotor.get());
     }
 }

@@ -5,7 +5,7 @@
       "x": 1.42,
       "y": 7.22
     },
-    "rotation": 90.00277502488926
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
@@ -74,7 +74,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp 6"
+                  "pathName": "Amp 2"
                 }
               },
               {
@@ -84,13 +84,19 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.0
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "NoteGrabberOn"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterIn"
                       }
                     },
                     {
@@ -103,6 +109,48 @@
                       "type": "named",
                       "data": {
                         "name": "NoteGrabberOff"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOff"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Extend"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOut"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.25
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOff"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Retract"
                       }
                     }
                   ]
@@ -118,7 +166,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp 7"
+                  "pathName": "Amp 3"
                 }
               },
               {
@@ -126,33 +174,21 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "NoteGrabberOut"
-                      }
-                    },
-                    {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "NoteGrabberOff"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
+                        "waitTime": 2.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "NoteGrabberOn"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterIn"
                       }
                     },
                     {
@@ -166,6 +202,42 @@
                       "data": {
                         "name": "NoteGrabberOff"
                       }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOff"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Extend"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.75
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOut"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.25
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterOff"
+                      }
                     }
                   ]
                 }
@@ -176,6 +248,6 @@
       ]
     }
   },
-  "folder": "Amp Autos",
+  "folder": "Blue Amp Autos",
   "choreoAuto": false
 }

@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.418171791298537,
-        "y": 1.192566709457744
+        "x": 8.399682384950355,
+        "y": 1.063140865020469
       },
       "prevControl": {
-        "x": 8.677023480173085,
-        "y": 0.4529904555304618
+        "x": 8.658534073824903,
+        "y": 0.3235646110931869
       },
       "nextControl": {
-        "x": 8.185747177691692,
-        "y": 1.8566370340487302
+        "x": 8.16725777134351,
+        "y": 1.7272111896114553
       },
       "isLocked": false,
       "linkedName": null
@@ -70,7 +70,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Note Gatherer Paths",
+  "folder": "Blue Note Gatherer Paths",
   "previewStartingState": {
     "rotation": -0.38980448786786676,
     "velocity": 0

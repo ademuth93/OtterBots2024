@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.943677240867995,
-        "y": 7.15784728848737
+        "x": 1.4542764984357044,
+        "y": 7.18128542562977
       },
       "isLocked": false,
       "linkedName": "Blue Left Start"
     },
     {
       "anchor": {
-        "x": 1.91,
-        "y": 7.6
+        "x": 1.42,
+        "y": 7.22
       },
       "prevControl": {
-        "x": 1.91,
-        "y": 7.331744263870695
+        "x": 1.3988082793911583,
+        "y": 7.196076950708314
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Amp"
+      "linkedName": "Blue Left Start"
     }
   ],
   "rotationTargets": [],
@@ -33,20 +33,20 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0,
+    "rotation": 90.42751175759497,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue Amp Paths",
   "previewStartingState": {
-    "rotation": 89.95623674938466,
+    "rotation": 89.6840737632475,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

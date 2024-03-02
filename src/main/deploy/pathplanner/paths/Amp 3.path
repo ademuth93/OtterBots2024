@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.279501243687172,
-        "y": 7.88
+        "x": 8.242522430990807,
+        "y": 7.68
       },
       "prevControl": {
-        "x": 7.752472075115446,
-        "y": 7.88
+        "x": 8.10666524563716,
+        "y": 7.917733525308798
       },
       "nextControl": {
-        "x": 8.82493873095854,
-        "y": 7.88
+        "x": 8.54759763573581,
+        "y": 7.146155553572369
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 8.02
       },
       "prevControl": {
-        "x": 1.7221666472161772,
-        "y": 6.671111080600539
+        "x": 1.6510490678639014,
+        "y": 7.210868475791006
       },
       "nextControl": null,
       "isLocked": false,
@@ -65,7 +65,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp Paths",
+  "folder": "Blue Amp Paths",
   "previewStartingState": {
     "rotation": 90.34083329424624,
     "velocity": 0

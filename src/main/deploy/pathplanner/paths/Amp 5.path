@@ -3,73 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.91,
-        "y": 7.6
+        "x": 4.61,
+        "y": 5.97
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.717334047280707,
-        "y": 6.988995599612821
-      },
-      "isLocked": false,
-      "linkedName": "Blue Amp"
-    },
-    {
-      "anchor": {
-        "x": 3.194914497937104,
-        "y": 7.87648710432556
-      },
-      "prevControl": {
-        "x": 0.7700024965104157,
-        "y": 7.539693770794075
-      },
-      "nextControl": {
-        "x": 3.5277238122043806,
-        "y": 7.922710620196015
+        "x": 4.363735455039975,
+        "y": 8.05138116780992
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.0438551327553105,
-        "y": 7.756305963062377
+        "x": 8.150075399251396,
+        "y": 5.602290123501705
       },
       "prevControl": {
-        "x": 4.783281695003799,
-        "y": 7.821797682711153
+        "x": 7.706329646895027,
+        "y": 6.009057063161709
       },
       "nextControl": {
-        "x": 6.772614626310334,
-        "y": 7.321804913880098
+        "x": 8.52488781633534,
+        "y": 5.258712074508089
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.670922891395332,
-        "y": 5.657758342543713
+        "x": 8.53835293256172,
+        "y": 4.52
       },
       "prevControl": {
-        "x": 6.670922891395332,
-        "y": 6.342116188658031
-      },
-      "nextControl": {
-        "x": 6.670922891395332,
-        "y": 4.067669396600055
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 5.247238602585313,
-        "y": 4.123137615644601
-      },
-      "prevControl": {
-        "x": 6.680167594569423,
-        "y": 4.039935287077782
+        "x": 8.603065854780358,
+        "y": 5.028458674572468
       },
       "nextControl": null,
       "isLocked": false,
@@ -79,12 +47,12 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
+      "rotationDegrees": -18.219821864202295,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 2.35,
-      "rotationDegrees": -0.7985417938059877,
+      "waypointRelativePos": 1.35,
+      "rotationDegrees": -22.221105775405256,
       "rotateFast": false
     }
   ],
@@ -98,13 +66,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0,
+    "rotation": -1.1457628381751255,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp Paths",
+  "folder": "Blue Amp Paths",
   "previewStartingState": {
-    "rotation": 89.6354747649082,
+    "rotation": -88.88057902168406,
     "velocity": 0
   },
   "useDefaultConstraints": false

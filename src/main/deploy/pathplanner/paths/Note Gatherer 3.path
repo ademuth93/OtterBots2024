@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3182397535966244,
-        "y": 1.6917806808586597
+        "x": 3.7033731725121104,
+        "y": 1.701025384032751
       },
       "isLocked": false,
       "linkedName": "Gatherer Start"
     },
     {
       "anchor": {
-        "x": 6.402826499346692,
-        "y": 0.5361927840972809
+        "x": 4.32,
+        "y": 1.69
       },
       "prevControl": {
-        "x": 5.506090291459861,
-        "y": 0.9614491301054677
+        "x": 2.5477852757507313,
+        "y": 1.701025384032751
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Note Gatherer Paths",
+  "folder": "Blue Note Gatherer Paths",
   "previewStartingState": {
-    "rotation": 1.218875235131306,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

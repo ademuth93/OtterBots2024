@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4291761916857166,
-      "y": 1.6178230554659307
+      "x": 1.32,
+      "y": 1.69
     },
-    "rotation": 91.38871658955134
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,28 +18,21 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Note Gatherer 1"
+                  "pathName": "Note Gatherer 3"
                 }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Note Gatherer 2"
-                }
-              }
-            ]
+            "waitTime": 1.0
           }
         }
       ]
     }
   },
-  "folder": "Note Gatherer Autos",
+  "folder": "Blue Note Gatherer Autos",
   "choreoAuto": false
 }
