@@ -3,12 +3,12 @@
   "robotLength": 0.99,
   "holonomicMode": true,
   "pathFolders": [
-    "Blue Amp Paths",
-    "Blue Note Gatherer Paths"
+    "Amp Paths",
+    "Note Gatherer Paths"
   ],
   "autoFolders": [
-    "Blue Amp Autos",
-    "Blue Note Gatherer Autos"
+    "Amp Autos",
+    "Note Gatherer Autos"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

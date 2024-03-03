@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.91,
+        "x": 1.88,
         "y": 7.6
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8561038381536221,
+        "x": 0.8261038381536221,
         "y": 6.823444933376352
       },
       "isLocked": false,
@@ -70,7 +70,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue Amp Paths",
+  "folder": "Amp Paths",
   "previewStartingState": {
     "rotation": 90.0,
     "velocity": 0

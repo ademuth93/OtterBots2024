@@ -158,6 +158,11 @@ public class LimelightVision extends SubsystemBase {
         return cam_tag_15.getdegRotationToTarget();
     }
 
+    public double getRYValue() {
+        return cam_tag_15.getRY();
+        // return 12.0;
+    }
+
     public double calculateAverage() {
         double sumOfValues = 0;
 
@@ -174,6 +179,8 @@ public class LimelightVision extends SubsystemBase {
 
         SmartDashboard.putNumber("Limelight tx", cam_tag_15.getdegRotationToTarget());
         SmartDashboard.putNumber("Limelight tx avg", this.calculateAverage());
+        // SmartDashboard.putNumberArray("Limetligt Testing", getRYValue());
+        SmartDashboard.putNumber("Testing", getRYValue());
 
         movingAverageIndex++;
         if (movingAverageIndex > 29) {

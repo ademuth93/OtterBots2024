@@ -337,6 +337,12 @@ public class LimeLight {
 
     }
 
+    public double getRY() {
+        NetworkTableEntry TRY = m_table.getEntry("targetpose_cameraspace");
+        double[] RY = TRY.getDoubleArray(new double[6]); // {1.0, 2.0, 3.0, 1.0, 0.5, 56.0}
+        return (RY[4]);
+    }
+
     /**
      * ty Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
      * 

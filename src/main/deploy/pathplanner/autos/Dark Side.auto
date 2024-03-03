@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.42,
-      "y": 7.22
+      "x": 1.3182397535966242,
+      "y": 1.6917806808586593
     },
-    "rotation": 90.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,7 +18,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp 1"
+                  "pathName": "Note Gatherer 1"
                 }
               },
               {
@@ -26,39 +26,39 @@
                 "data": {
                   "commands": [
                     {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
                       "type": "named",
                       "data": {
-                        "name": "Extend"
+                        "name": "NoteGrabberOn"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.75
+                        "waitTime": 2.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterOut"
+                        "name": "NoteGrabberOff"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 3.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterOff"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Retract"
+                        "name": "NoteGrabberOut"
                       }
                     }
                   ]
@@ -74,13 +74,25 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp 2"
+                  "pathName": "Note Gatherer 2"
                 }
               },
               {
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "NoteGrabberOff"
+                      }
+                    },
                     {
                       "type": "wait",
                       "data": {
@@ -94,12 +106,6 @@
                       }
                     },
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterIn"
-                      }
-                    },
-                    {
                       "type": "wait",
                       "data": {
                         "waitTime": 2.0
@@ -112,18 +118,6 @@
                       }
                     },
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterOff"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Extend"
-                      }
-                    },
-                    {
                       "type": "wait",
                       "data": {
                         "waitTime": 1.5
@@ -132,25 +126,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterOut"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterOff"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Retract"
+                        "name": "NoteGrabberOut"
                       }
                     }
                   ]
@@ -166,7 +142,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Amp 3"
+                  "pathName": "Note Gatherer 4"
                 }
               },
               {
@@ -176,67 +152,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "NoteGrabberOn"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterIn"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "NoteGrabberOff"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterOff"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Extend"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.75
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterOut"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterOff"
                       }
                     }
                   ]
@@ -248,6 +170,6 @@
       ]
     }
   },
-  "folder": "Blue Amp Autos",
+  "folder": "Note Gatherer Autos",
   "choreoAuto": false
 }
