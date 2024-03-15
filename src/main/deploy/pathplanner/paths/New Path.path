@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4557531718482977,
-        "y": 7.247250048994782
+        "x": 4.32,
+        "y": 1.69
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4088378447027163,
-        "y": 7.210868475791006
+        "x": 5.32,
+        "y": 1.69
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4557531718482977,
-        "y": 7.247250048994782
+        "x": 6.153219513646234,
+        "y": 2.0800582141704833
       },
       "prevControl": {
-        "x": 1.516076401522172,
-        "y": 7.2071705945213695
+        "x": 5.153219513646234,
+        "y": 2.0800582141704833
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.5,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.42751175759497,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp Paths",
+  "folder": "Limelight Testing Paths",
   "previewStartingState": {
-    "rotation": 89.6840737632475,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": false

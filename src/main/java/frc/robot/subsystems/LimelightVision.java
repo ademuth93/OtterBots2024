@@ -157,11 +157,11 @@ public class LimelightVision extends SubsystemBase {
     public double getXValue() {
         return cam_tag_15.getdegRotationToTarget();
     }
-
-    public double getRYValue() {
-        return cam_tag_15.getRY();
-        // return 12.0;
-    }
+//
+    //public double getRYValue() {
+    //    return cam_tag_15.getRY();
+    //    // return 12.0;
+    //}
 
     public double calculateAverage() {
         double sumOfValues = 0;
@@ -178,9 +178,9 @@ public class LimelightVision extends SubsystemBase {
     public void periodic() {
 
         SmartDashboard.putNumber("Limelight tx", cam_tag_15.getdegRotationToTarget());
+        SmartDashboard.putNumber("Limelight ty", cam_tag_15.getDegRotationToTargetVertical());
         SmartDashboard.putNumber("Limelight tx avg", this.calculateAverage());
-        // SmartDashboard.putNumberArray("Limetligt Testing", getRYValue());
-        SmartDashboard.putNumber("Testing", getRYValue());
+        SmartDashboard.putNumber("EDAWG", cam_tag_15.useTXAndTYForXC());
 
         movingAverageIndex++;
         if (movingAverageIndex > 29) {

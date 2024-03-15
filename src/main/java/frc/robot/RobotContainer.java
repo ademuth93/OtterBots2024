@@ -2,13 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-// import com.pathplanner.lib.auto.NamedCommands;
-// import com.pathplanner.lib.commands.PathPlannerAuto;
-// import com.pathplanner.lib.path.GoalEndState;
-// import com.pathplanner.lib.path.PathConstraints;
-// import com.pathplanner.lib.path.PathPlannerPath;
-// import com.pathplanner.lib.path.PathPlannerTrajectory;
-// import com.pathplanner.lib.util.PIDConstants;
 
 import frc.robot.commands.*;
 import frc.robot.oi.LimeLight;
@@ -84,12 +77,14 @@ public class RobotContainer {
         NamedCommands.registerCommand("ShooterIn", sShooter.autoShooterInCommand());
         NamedCommands.registerCommand("ShooterOff", sShooter.autoShooterOffCommand());
 
+        NamedCommands.registerCommand("ERIC HAVING FUN", s_Swerve.followPathCommand());
+
         s_Swerve.setDefaultCommand(
                 new TeleopSwerve(
                         s_Swerve,
                         () -> -driverController.getRawAxis(translationAxis),
                         () -> -driverController.getRawAxis(strafeAxis),
-                        () -> -driverController.getRawAxis(rotationAxis) / 2 / 9 * 6.75,
+                        () -> -driverController.getRawAxis(rotationAxis) / 4,
                         () -> robotCentric.getAsBoolean(),
                         () -> targetLock.getAsBoolean(),
                         () -> a_limelight.getdegRotationToTarget(),
@@ -102,7 +97,7 @@ public class RobotContainer {
         configureButtonBindings();
 
         // Auto stuff
-        autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser = AutoBuilder.buildAutoChooser(); // 
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         sNoteGrabber.setDefaultCommand(

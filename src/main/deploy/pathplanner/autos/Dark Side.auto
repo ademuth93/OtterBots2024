@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3182397535966242,
-      "y": 1.6917806808586593
+      "x": 1.32,
+      "y": 1.69
     },
     "rotation": 0
   },
@@ -11,6 +11,37 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "NoteGrabberOut"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.1
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "NoteGrabberOff"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note Gatherer 0"
+          }
+        },
         {
           "type": "parallel",
           "data": {

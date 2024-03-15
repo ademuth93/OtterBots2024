@@ -56,7 +56,5 @@ public class Climber extends SubsystemBase {
         SmartDashboard.putBoolean("Bottom Right Limit Switch", swBottomRightLimitSwitch.get());
         SmartDashboard.putBoolean("Top Left Limit Switch", swTopLeftLimitSwitch.get());
         SmartDashboard.putBoolean("Top Right Limit Switch", swTopRightLimitSwitch.get());
-        SmartDashboard.putNumber("Eric 2", leftClimberMotor.get());
-        SmartDashboard.putNumber("Eric 3", rightClimberMotor.get());
     }
 }

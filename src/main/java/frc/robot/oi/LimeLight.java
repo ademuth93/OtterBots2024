@@ -334,14 +334,38 @@ public class LimeLight {
         NetworkTableEntry tx = m_table.getEntry("tx");
         double x = tx.getDouble(0.0);
         return x;
-
     }
 
-    public double getRY() {
-        NetworkTableEntry TRY = m_table.getEntry("targetpose_cameraspace");
-        double[] RY = TRY.getDoubleArray(new double[6]); // {1.0, 2.0, 3.0, 1.0, 0.5, 56.0}
-        return (RY[4]);
+    public double getDegRotationToTargetVertical() {
+        NetworkTableEntry ty = m_table.getEntry("ty");
+        double y = ty.getDouble(0.0);
+        return y;
     }
+
+    public double useTXandTYforYC() {
+        NetworkTableEntry ty = m_table.getEntry("ty");
+        double y = ty.getDouble(0.0);
+
+        double YC = 0.1 * y + 2.5;
+        return YC;
+    }
+
+    public double useTXAndTYForXC() {
+        NetworkTableEntry tx = m_table.getEntry("ty");
+        double x = tx.getDouble(0.0);
+
+        NetworkTableEntry ty = m_table.getEntry("ty");
+        double y = ty.getDouble(0.0);
+
+        double XC = (0.1 * y + 2.5) * Math.tan(x * (3.1415926535 / 180));
+        return -XC;
+    }
+
+    //public double getRY() {
+    //    NetworkTableEntry TRY = m_table.getEntry("targetpose_cameraspace");
+    //    double[] RY = TRY.getDoubleArray(new double[6]); // {1.0, 2.0, 3.0, 1.0, 0.5, 56.0}
+    //    return (RY[4]);
+    //}
 
     /**
      * ty Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)

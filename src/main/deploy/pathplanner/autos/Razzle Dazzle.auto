@@ -12,6 +12,37 @@
     "data": {
       "commands": [
         {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "NoteGrabberOut"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.1
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "NoteGrabberOff"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp 0"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -34,7 +65,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.75
+                        "waitTime": 2.0
                       }
                     },
                     {
