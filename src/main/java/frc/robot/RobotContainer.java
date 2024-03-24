@@ -84,7 +84,7 @@ public class RobotContainer {
                         s_Swerve,
                         () -> -driverController.getRawAxis(translationAxis),
                         () -> -driverController.getRawAxis(strafeAxis),
-                        () -> -driverController.getRawAxis(rotationAxis) / 4,
+                        () -> -driverController.getRawAxis(rotationAxis) / 2.0,
                         () -> robotCentric.getAsBoolean(),
                         () -> targetLock.getAsBoolean(),
                         () -> a_limelight.getdegRotationToTarget(),

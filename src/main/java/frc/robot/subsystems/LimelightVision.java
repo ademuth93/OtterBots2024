@@ -86,7 +86,7 @@ public class LimelightVision extends SubsystemBase {
 
     public LimelightVision() {
 
-        cam_tag_15 = new LimeLight("limelight-otto");
+        cam_tag_15 = new LimeLight("Camera_Module_v1");
         cam_tag_15.setLEDMode(LedMode.kforceOn);
         cam_tag_15.setCamMode(CamMode.kvision);
         cam_tag_15.setStream(StreamType.kStandard);

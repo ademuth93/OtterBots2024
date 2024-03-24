@@ -25,7 +25,7 @@ public class LimeLight {
 
     public LimeLight() {
 
-        m_tableName = "limelight";
+        m_tableName = "Camera_Module_v1";
         m_table = NetworkTableInstance.getDefault().getTable(m_tableName);
         _heartBeat.startPeriodic(_heartBeatPeriod);
     }
