@@ -1,7 +1,6 @@
 package frc.robot;
 
 import frc.robot.commands.*;
-import frc.robot.oi.LimeLight;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -31,7 +30,6 @@ public class RobotContainer {
 
     // Others
     public final Timer m_timer = new Timer();
-    private final LimeLight a_limelight = new LimeLight();
     public double gyroOffset = 0.0;
 
     // The container for the robot. Contains subsystems, OI devices, and commands.
@@ -45,7 +43,6 @@ public class RobotContainer {
                         () -> -driverController.getRawAxis(rotationAxis) / 2.0,
                         () -> robotCentric.getAsBoolean(),
                         () -> targetLock.getAsBoolean(),
-                        () -> a_limelight.getdegRotationToTarget(),
                         () -> driverController.getRawAxis(speedControl),
                         () -> gyroOffset));
         m_timer.start();
