@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -58,11 +57,6 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    // Resets Odometry
-    public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getYawRot2d(), getModulePositions(), pose);
-    }
-
     // Gets module states
     public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
@@ -84,11 +78,6 @@ public class Swerve extends SubsystemBase {
     // Zeros the gyro
     public void zeroGyro() {
         gyro.zeroYaw();
-    }
-
-    // Sets the gyro offset
-    public void setGyroOffset(double gyroOffset) {
-        this.gyroOffset = gyroOffset;
     }
 
     // Gets the yaw
