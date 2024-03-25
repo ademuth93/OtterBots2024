@@ -15,10 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
-
-    // PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new
-    // PathConstrains(4, 3));
-
+        
     // Subsystems
     private final Swerve s_Swerve = new Swerve();
     private final LimelightVision a_LimelightVision = new LimelightVision();
