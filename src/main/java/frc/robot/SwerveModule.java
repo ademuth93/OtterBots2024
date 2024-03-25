@@ -43,6 +43,7 @@ public class SwerveModule {
     // general Configuration withing the CANCoder
     public CANcoderConfiguration swerveCanCoderConfig;
 
+    // No idea wat this is
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV,
             Constants.Swerve.driveKA);
 
@@ -72,12 +73,14 @@ public class SwerveModule {
         lastAngle = getState().angle;
     }
 
+    // Sets the module to the state it wants to, using the setAngle and setSpeed methods
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
         desiredState = CTREModuleState.optimize(desiredState, getState().angle);
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);
     }
 
+    // Sets the speed of the module
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
         if (isOpenLoop) {
             double percentOutput = desiredState.speedMetersPerSecond / Constants.Swerve.maxSpeed;
@@ -91,21 +94,18 @@ public class SwerveModule {
         }
     }
 
+    // Sets the angle of the module
     private void setAngle(SwerveModuleState desiredState) {
         // Prevent rotating module if speed is less then 1%. Prevents jittering.
         Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01))
                 ? lastAngle
                 : desiredState.angle;
 
-        // comment out ↓↓
-        // Rotation2d oldAngle = getAngle();
-        // angle = optimizeTurn(oldAngle, angle);
-        // comment out ↑↑
-
         angleController.setReference(angle.getDegrees(), ControlType.kPosition);
         lastAngle = angle;
     }
 
+    // 
     public double makePositiveDegrees(double angle) {
         // Take arbitrary angle and calculate its equvalent in 0-360 degree range
         double degrees = angle;
@@ -116,10 +116,12 @@ public class SwerveModule {
         return degrees;
     }
 
+    // Makes the degrees positive.  Not sure why yet
     public double makePositiveDegrees(Rotation2d angle) {
         return makePositiveDegrees(angle.getDegrees());
     }
 
+    // Designed to make the turn better
     public Rotation2d optimizeTurn(Rotation2d oldAngle, Rotation2d newAngle) {
         double steerAngle = makePositiveDegrees(newAngle);
         steerAngle %= 360;
@@ -146,6 +148,7 @@ public class SwerveModule {
         return Rotation2d.fromDegrees(makePositiveDegrees(steerAngle));
     }
 
+    // Gets the angle of the 
     private Rotation2d getAngle() {
         return Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
     }
@@ -155,16 +158,16 @@ public class SwerveModule {
     }
 
     public void resetToAbsolute() {
-        // double absolutePosition = getCanCoder().getDegrees() - angleOffset;
         double absolutePosition = makePositiveDegrees(getCanCoder().getDegrees() - angleOffset);
         integratedAngleEncoder.setPosition(absolutePosition);
     }
 
+    // Configure angle encoder
     private void configAngleEncoder() {
-        // angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
         angleEncoder.getConfigurator().apply(swerveCanCoderConfig);
     }
 
+    // Configue angle motor settings
     private void configAngleMotor() {
         angleMotor.restoreFactoryDefaults();
         CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
@@ -181,6 +184,7 @@ public class SwerveModule {
         resetToAbsolute();
     }
 
+    // Configure drive motor settings
     private void configDriveMotor() {
         driveMotor.restoreFactoryDefaults();
         CANSparkMaxUtil.setCANSparkMaxBusUsage(driveMotor, Usage.kAll);
@@ -200,18 +204,14 @@ public class SwerveModule {
 
     public SwerveModuleState getState() {
         return new SwerveModuleState(driveEncoder.getVelocity(), getAngle());
-        // return new SwerveModuleState(driveEncoder.getVelocity(), getCanCoder());
     }
 
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
-        // return new SwerveModulePosition(driveEncoder.getPosition(), getCanCoder());
     }
 
     public double getAbsoluteEncoderRad() {
         double angle = angleEncoder.getPosition().getValueAsDouble();
-        // double angle = angleEncoder.getAbsolutePosition().getValueAsDouble();
-        // angle *= 2.0 * Math.PI / 360.0;
         angle -= angleOffset;
         return angle;
     }
