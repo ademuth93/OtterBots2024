@@ -26,6 +26,7 @@ public class RobotContainer {
     private final Shooter sShooter = new Shooter();
     private final Lift sLift = new Lift();
     private final Climber sClimber = new Climber();
+    private final PhotonVision sPhotonVision = new PhotonVision();
 
     // Controllers
     private final XboxController driverController = new XboxController(2);
@@ -97,7 +98,7 @@ public class RobotContainer {
         configureButtonBindings();
 
         // Auto stuff
-        autoChooser = AutoBuilder.buildAutoChooser(); // 
+        autoChooser = AutoBuilder.buildAutoChooser(); //
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         sNoteGrabber.setDefaultCommand(
