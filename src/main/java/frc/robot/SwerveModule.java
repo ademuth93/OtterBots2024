@@ -1,7 +1,3 @@
-/* Abbreviations guide
- * All variables follow camel case and have logical names
- */
-
 package frc.robot;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -25,25 +21,32 @@ import frc.lib.util.CANSparkMaxUtil.Usage;
 import frc.lib.util.CANSparkMaxUtil;
 
 public class SwerveModule {
+
+    // defining variables
     public int moduleNumber;
     private double angleOffset;
     private Rotation2d lastAngle;
 
+    // The two motors in a module
     private CANSparkMax angleMotor;
     private CANSparkMax driveMotor;
 
+    // The two encoders in each motor and the CANCoder
     private RelativeEncoder driveEncoder;
     private RelativeEncoder integratedAngleEncoder;
     public CANcoder angleEncoder;
 
+    // PIDControllers within the NEO, I think
     private final SparkPIDController driveController;
     private final SparkPIDController angleController;
 
+    // general Configuration withing the CANCoder
     public CANcoderConfiguration swerveCanCoderConfig;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV,
             Constants.Swerve.driveKA);
 
+    // Whenever a SwerveModule is created, this is what is called
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
@@ -67,8 +70,6 @@ public class SwerveModule {
         configDriveMotor();
 
         lastAngle = getState().angle;
-        // lastAngle = new Rotation2d(0.0);
-        // lastAngle = new Rotation2d(angleEncoder.getPosition().getValueAsDouble());
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
