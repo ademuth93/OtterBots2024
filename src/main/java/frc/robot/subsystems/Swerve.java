@@ -203,7 +203,6 @@ public class Swerve extends SubsystemBase {
         return gyro.getRoll();
     }
 
-    // Gets the yaw, another type TODO: figure out what this is
     public double getYaw2() {
         return gyro.getYaw();
     }

@@ -92,7 +92,6 @@ public class RobotContainer {
                         () -> driverController.getRawAxis(speedControl),
                         () -> gyroOffset));
 
-        // Timer? TODO: Figure out what this is
         m_timer.start();
 
         configureButtonBindings();

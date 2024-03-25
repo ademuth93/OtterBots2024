@@ -48,10 +48,10 @@ public final class CTREConfigs {
         //     SwerveConstants.Swerve.anglePeakCurrentLimit, 
         //     SwerveConstants.Swerve.anglePeakCurrentDuration);
 
-        currentLimitsConfigs.SupplyCurrentLimitEnable = true; // SwerveConstants.Swerve.angleEnableCurrentLimit TODO: Don't put false
+        currentLimitsConfigs.SupplyCurrentLimitEnable = true;
         currentLimitsConfigs.SupplyCurrentLimit = Constants.Swerve.angleContinuousCurrentLimit;
-        currentLimitsConfigs.SupplyCurrentThreshold = 40; // Constants.Swerve.anglePeakCurrentLimit TODO:
-        currentLimitsConfigs.SupplyTimeThreshold = 0.1; // SwerveConstants.Swerve.anglePeakCurrentDuration TODO:
+        currentLimitsConfigs.SupplyCurrentThreshold = 40;
+        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
         slot0Configs.withKP(Constants.Swerve.angleKP);
         slot0Configs.withKI(Constants.Swerve.angleKI);
         slot0Configs.withKD(Constants.Swerve.angleKD);
@@ -77,10 +77,10 @@ public final class CTREConfigs {
         //     SwerveConstants.Swerve.drivePeakCurrentLimit, 
         //     SwerveConstants.Swerve.drivePeakCurrentDuration);
 
-        currentLimitsConfigs.SupplyCurrentLimitEnable = true; //Constants.Swerve.driveEnableCurrentLimit TODO:
+        currentLimitsConfigs.SupplyCurrentLimitEnable = true;
         currentLimitsConfigs.SupplyCurrentLimit = Constants.Swerve.driveContinuousCurrentLimit;
-        currentLimitsConfigs.SupplyCurrentThreshold = 60; // Constants.Swerve.drivePeakCurrentLimit TODO:
-        currentLimitsConfigs.SupplyTimeThreshold = 0.1; // Constants.Swerve.drivePeakCurrentDuration TODO:
+        currentLimitsConfigs.SupplyCurrentThreshold = 60;
+        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
         slot0Configs.withKP(Constants.Swerve.driveKP);
         slot0Configs.withKI(Constants.Swerve.driveKI);
         slot0Configs.withKD(Constants.Swerve.driveKD);
