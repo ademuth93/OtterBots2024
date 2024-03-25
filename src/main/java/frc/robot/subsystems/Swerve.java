@@ -36,7 +36,7 @@ public class Swerve extends SubsystemBase {
 
         resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
+        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYawRot2d(), getModulePositions());
     }
 
     // Method called in TeleopSwerve to drive in teleop
@@ -46,7 +46,7 @@ public class Swerve extends SubsystemBase {
                         translation.getX(),
                         translation.getY(),
                         rotation,
-                        getYaw())
+                        getYawRot2d())
                         : new ChassisSpeeds(
                                 translation.getX(),
                                 translation.getY(),
@@ -60,7 +60,7 @@ public class Swerve extends SubsystemBase {
 
     // Resets Odometry
     public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
+        swerveOdometry.resetPosition(getYawRot2d(), getModulePositions(), pose);
     }
 
     // Gets module states
@@ -81,10 +81,6 @@ public class Swerve extends SubsystemBase {
         return positions;
     }
 
-    public ChassisSpeeds getSpeeds() {
-        return Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
-    }
-
     // Zeros the gyro
     public void zeroGyro() {
         gyro.zeroYaw();
@@ -96,23 +92,13 @@ public class Swerve extends SubsystemBase {
     }
 
     // Gets the yaw
-    public Rotation2d getYaw() {
+    public Rotation2d getYawRot2d() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw() + gyroOffset)
                 : Rotation2d.fromDegrees(gyro.getYaw() + gyroOffset);
     }
 
-    // Gets the roll
-    public double getRoll() {
-        return gyro.getRoll();
-    }
-
-    public double getYaw2() {
+    public double getYawDeg() {
         return gyro.getYaw();
-    }
-
-    // Gets the pitch
-    public double getPitch() {
-        return gyro.getPitch();
     }
 
     // Resets the modules to absolute
@@ -124,16 +110,13 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic() {
-        swerveOdometry.update(getYaw(), getModulePositions());
+        swerveOdometry.update(getYawRot2d(), getModulePositions());
 
         SmartDashboard.putNumber("Encoder Reading FL", mSwerveMods[0].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading FR", mSwerveMods[1].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading BL", mSwerveMods[2].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading BR", mSwerveMods[3].getAbsoluteEncoderRad());
-        SmartDashboard.putString("Robot Yaw", this.getYaw().toString());
-        SmartDashboard.putNumber("Robot Yaw2", this.getYaw2());
-        SmartDashboard.putNumber("Robot Roll", this.getRoll());
-        SmartDashboard.putNumber("Robot Pitch", this.getPitch());
+        SmartDashboard.putNumber("Robot Yaw2", this.getYawDeg());
 
         for (SwerveModule mod : mSwerveMods) {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + "Cancoder", mod.getCanCoder().getDegrees());
