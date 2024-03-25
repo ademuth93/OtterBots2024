@@ -1,19 +1,10 @@
 package frc.robot;
 
 import com.ctre.phoenix6.signals.SensorDirectionValue;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkBase.IdleMode;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 import frc.lib.util.SwerveModuleConstants;
@@ -120,16 +111,7 @@ public final class Constants {
                 new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
                 new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
-        public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(
-                new PIDConstants(2, 0, 0), // Translation constants
-                new PIDConstants(2, 0, 0), // Rotation constants
-                4.5,
-                0.42, // Drive base radius (distance from center to furthest module)
-                new ReplanningConfig());
 
-        public static final ReplanningConfig replanningConfig = new ReplanningConfig(
-
-        );
 
         public static final boolean invertGyro = false;
 
@@ -140,49 +122,4 @@ public final class Constants {
     // Stick deadband constants
     public static final double stickDeadband = 0.1;
     public static final double stickDeadband2 = 1;
-
-    public static class VisionConstants {
-
-        /**
-         * Physical location of the camera on the robot, relative to the center of the
-         * robot.
-         */
-        public static final Transform2d CAMERA_TO_ROBOT = new Transform2d(new Translation2d(-0.3425, 0.0),
-                new Rotation2d(0.0));
-
-        public static final Transform3d CAMERA_TO_ROBOT3 = new Transform3d();
-
-        // 15"up and 15"forward
-
-        private static double camHeight = Units.inchesToMeters(15);
-
-        public static double camXFromCenter = -Units.inchesToMeters(15);
-
-        public static String cameraName = "front";
-
-        public static final Transform3d CAMERA_TO_ROBOT_3D = new Transform3d(
-                new Translation3d(camXFromCenter, 0.0, camHeight),
-                new Rotation3d());
-    }
-
-    public static class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecondA = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquaredA = 3;
-        public static final double kMaxAngularSpeedRadiansPerSecondA = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquaredA = Math.PI;
-
-        public static final double kMaxSpeedMetersPerSecondB = 1;
-        public static final double kMaxAccelerationMetersPerSecondSquaredB = 1;
-        public static final double kMaxAngularSpeedRadiansPerSecondB = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquaredB = Math.PI;
-
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
-
-        /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecondB, kMaxAngularSpeedRadiansPerSecondSquaredB);
-
-    }
 }
