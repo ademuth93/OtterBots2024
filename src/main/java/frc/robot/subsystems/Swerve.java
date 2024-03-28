@@ -5,7 +5,6 @@ import java.util.List;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -251,10 +250,6 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public EstimatedRobotPose getEstimatedRobotPose() {
-        return photonPoseEstimator.update().get();
-    }
-
     @Override
     public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());
@@ -269,13 +264,13 @@ public class Swerve extends SubsystemBase {
             // This tells me that the camera values can be interpreted over here
             SmartDashboard.putNumber("Photon Value", target.getFiducialId());
 
-            // swervePoseEstimator.addVisionMeasurement(getEstimatedRobotPose().estimatedPose.toPose2d(),
-            //         Timer.getMatchTime() - 0.03);
+            swervePoseEstimator.addVisionMeasurement(photonPoseEstimator.update().get().estimatedPose.toPose2d(),
+                    Timer.getMatchTime() - 0.03);
 
             // This is true, which tells me that there is not a value in photonForEric
             SmartDashboard.putBoolean("Vision Boolean", photonForEric.isEmpty());
 
-            // These were to test each parameter to make a PhotonVisionPoseEstimator
+            // These were to test each parameter that makes a PhotonVisionPoseEstimator
             SmartDashboard.putString("Vision String", photonForEric.get().toString());
             SmartDashboard.putString("Vision Layout", aprilTagFieldLayout.getOrigin().toString());
             SmartDashboard.putString("Vision Strategy", PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR.toString());
