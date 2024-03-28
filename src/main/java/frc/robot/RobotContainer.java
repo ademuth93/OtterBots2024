@@ -26,7 +26,7 @@ public class RobotContainer {
     private final Shooter sShooter = new Shooter();
     private final Lift sLift = new Lift();
     private final Climber sClimber = new Climber();
-    private final PhotonVision sPhotonVision = new PhotonVision();
+    //private final PhotonVision sPhotonVision = new PhotonVision();
 
     // Controllers
     private final XboxController driverController = new XboxController(2);
