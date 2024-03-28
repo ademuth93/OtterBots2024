@@ -5,6 +5,7 @@ import java.util.List;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -77,8 +78,11 @@ public class Swerve extends SubsystemBase {
         resetModulesToAbsolute();
 
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
-        swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(),
-                getModulePositions(), getPose());
+        swervePoseEstimator = new SwerveDrivePoseEstimator(
+                Constants.Swerve.swerveKinematics,
+                getYaw(),
+                getModulePositions(), new Pose2d(0.0, 0.0, new Rotation2d(0.0, 0.0)));
+
         photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                 camera, robotToCamera);
 
@@ -171,12 +175,12 @@ public class Swerve extends SubsystemBase {
 
     // Gets pose
     public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
+        return swervePoseEstimator.getEstimatedPosition();
     }
 
     // Resets Odometry
     public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
+        swervePoseEstimator.resetPosition(getYaw(), getModulePositions(), pose);
     }
 
     // Gets module states
@@ -247,7 +251,9 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-
+    public EstimatedRobotPose getEstimatedRobotPose() {
+        return photonPoseEstimator.update().get();
+    }
 
     @Override
     public void periodic() {
@@ -256,11 +262,25 @@ public class Swerve extends SubsystemBase {
 
         result = camera.getLatestResult();
 
-        if(result.hasTargets()) {
-            swervePoseEstimator.addVisionMeasurement(photonPoseEstimator.update().get().estimatedPose.toPose2d(),  Timer.getFPGATimestamp());//Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Capture("photonvision") + LimelightHelpers.getLatency_Pipeline("photonvision")) / 1000.0);
-            SmartDashboard.putNumber("Pose from vision X", photonPoseEstimator.update().get().estimatedPose.toPose2d().getX());
-        }
+        if (result.hasTargets()) {
+            var photonForEric = photonPoseEstimator.update();
+            var target = result.getBestTarget();
 
+            // This tells me that the camera values can be interpreted over here
+            SmartDashboard.putNumber("Photon Value", target.getFiducialId());
+
+            // swervePoseEstimator.addVisionMeasurement(getEstimatedRobotPose().estimatedPose.toPose2d(),
+            //         Timer.getMatchTime() - 0.03);
+
+            // This is true, which tells me that there is not a value in photonForEric
+            SmartDashboard.putBoolean("Vision Boolean", photonForEric.isEmpty());
+
+            // These were to test each parameter to make a PhotonVisionPoseEstimator
+            SmartDashboard.putString("Vision String", photonForEric.get().toString());
+            SmartDashboard.putString("Vision Layout", aprilTagFieldLayout.getOrigin().toString());
+            SmartDashboard.putString("Vision Strategy", PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR.toString());
+            SmartDashboard.putString("Vision Camera", camera.getName());
+        }
         SmartDashboard.putNumber("Encoder Reading FL", mSwerveMods[0].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading FR", mSwerveMods[1].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading BL", mSwerveMods[2].getAbsoluteEncoderRad());
@@ -275,5 +295,6 @@ public class Swerve extends SubsystemBase {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + "Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + "Velocity", mod.getState().speedMetersPerSecond);
         }
+
     }
 }
