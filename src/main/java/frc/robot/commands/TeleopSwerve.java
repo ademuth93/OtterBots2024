@@ -16,14 +16,12 @@ public class TeleopSwerve extends Command {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
-    private BooleanSupplier targetLockSup;
-    private DoubleSupplier targetRotationSup;
     private DoubleSupplier speedControlSup;
     private DoubleSupplier gyroOffsetSup;
 
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup,
-            DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier targetLockSup,
-            DoubleSupplier targetRotationSup, DoubleSupplier speedControlSup, DoubleSupplier gyroOffsetSup) {
+            DoubleSupplier rotationSup, BooleanSupplier robotCentricSup,
+            DoubleSupplier speedControlSup, DoubleSupplier gyroOffsetSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -31,8 +29,6 @@ public class TeleopSwerve extends Command {
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
-        this.targetLockSup = targetLockSup;
-        this.targetRotationSup = targetRotationSup;
         this.speedControlSup = speedControlSup;
         this.gyroOffsetSup = gyroOffsetSup;
     }
@@ -43,7 +39,6 @@ public class TeleopSwerve extends Command {
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-        double targetRotation = MathUtil.applyDeadband(targetRotationSup.getAsDouble(), 0.5);
         double speedControlVal = MathUtil.applyDeadband(speedControlSup.getAsDouble(), Constants.stickDeadband);
         double gyroOffsetVal = gyroOffsetSup.getAsDouble();
 
@@ -51,10 +46,6 @@ public class TeleopSwerve extends Command {
             speedControlVal = 0.2;
         }
 
-        // And drive
-        if (targetLockSup.getAsBoolean() == true) {
-            rotationVal = targetRotation;
-        }
         s_Swerve.setGyroOffset(gyroOffsetVal);
         s_Swerve.drive(
                 new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed).times(speedControlVal),

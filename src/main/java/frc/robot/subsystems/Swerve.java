@@ -1,10 +1,12 @@
 package frc.robot.subsystems;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -27,7 +29,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
@@ -41,7 +42,6 @@ import frc.robot.Constants;
 import frc.robot.SwerveModule;
 
 public class Swerve extends SubsystemBase {
-    public SwerveDriveOdometry swerveOdometry;
     public SwerveDrivePoseEstimator swervePoseEstimator;
     public SwerveModule[] mSwerveMods;
     private final AHRS gyro;
@@ -76,7 +76,6 @@ public class Swerve extends SubsystemBase {
         Timer.delay(1.0);
         resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
         swervePoseEstimator = new SwerveDrivePoseEstimator(
                 Constants.Swerve.swerveKinematics,
                 getYaw(),
@@ -252,29 +251,20 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic() {
-        swerveOdometry.update(getYaw(), getModulePositions());
         swervePoseEstimator.update(getYaw(), getModulePositions());
 
         result = camera.getLatestResult();
 
         if (result.hasTargets()) {
-            var photonForEric = photonPoseEstimator.update();
-            var target = result.getBestTarget();
+                Optional<EstimatedRobotPose> optionalPose = photonPoseEstimator.update();
+                if (optionalPose.isPresent()) {
+                    EstimatedRobotPose photonPose = optionalPose.get();
 
-            // This tells me that the camera values can be interpreted over here
-            SmartDashboard.putNumber("Photon Value", target.getFiducialId());
-
-            swervePoseEstimator.addVisionMeasurement(photonPoseEstimator.update().get().estimatedPose.toPose2d(),
+                    // Do your work with the PhotonVision data here
+                swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
                     Timer.getMatchTime() - 0.03);
+                }
 
-            // This is true, which tells me that there is not a value in photonForEric
-            SmartDashboard.putBoolean("Vision Boolean", photonForEric.isEmpty());
-
-            // These were to test each parameter that makes a PhotonVisionPoseEstimator
-            SmartDashboard.putString("Vision String", photonForEric.get().toString());
-            SmartDashboard.putString("Vision Layout", aprilTagFieldLayout.getOrigin().toString());
-            SmartDashboard.putString("Vision Strategy", PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR.toString());
-            SmartDashboard.putString("Vision Camera", camera.getName());
         }
         SmartDashboard.putNumber("Encoder Reading FL", mSwerveMods[0].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading FR", mSwerveMods[1].getAbsoluteEncoderRad());
