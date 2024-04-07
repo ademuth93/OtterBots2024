@@ -4,7 +4,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import frc.robot.commands.*;
-// import frc.robot.oi.LimeLight;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -37,6 +36,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driverController,
             XboxController.Button.kLeftBumper.value);
     private final JoystickButton zeroGyro = new JoystickButton(driverController, XboxController.Button.kY.value);
+    private final JoystickButton orientToTag = new JoystickButton(driverController, XboxController.Button.kA.value);
 
     // Operator Controls
     private final int noteGrabberSpeed = XboxController.Axis.kLeftY.value;
@@ -59,8 +59,12 @@ public class RobotContainer {
     public final Timer m_timer = new Timer();
     public double gyroOffset = 0.0;
 
+
+
     // The container for the robot. Contains subsystems, OI devices, and commands.
     public RobotContainer() {
+
+
 
         NamedCommands.registerCommand("NoteGrabberOn", sNoteGrabber.autoGrabberOnCommand());
         NamedCommands.registerCommand("NoteGrabberOut", sNoteGrabber.autoGrabberOutCommand());
@@ -81,8 +85,8 @@ public class RobotContainer {
                         () -> -driverController.getRawAxis(rotationAxis) / 2.0,
                         () -> robotCentric.getAsBoolean(),
                         () -> driverController.getRawAxis(speedControl),
+                        () -> orientToTag.getAsBoolean(),
                         () -> gyroOffset));
-
 
         m_timer.start();
 

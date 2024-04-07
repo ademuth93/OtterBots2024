@@ -20,9 +20,11 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFieldLayout.OriginPosition;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -33,6 +35,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,9 +54,15 @@ public class Swerve extends SubsystemBase {
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
+    Optional<Pose3d> aprilTagPose;
+    Pose2d aprilTagVals;
+    Pose2d aprilTagValM;
+    Pose2d robotDesiredPosition;
+
     Transform3d robotToCamera = new Transform3d(0.0, 0.5, 0.0, new Rotation3d(0.0, 0.0, 0.0));
 
     PhotonPoseEstimator photonPoseEstimator;
+
 
     PhotonPipelineResult result;
 
@@ -83,6 +92,10 @@ public class Swerve extends SubsystemBase {
 
         photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                 camera, robotToCamera);
+
+        photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+
+        aprilTagFieldLayout.setOrigin(OriginPosition.kBlueAllianceWallRightSide);
 
         result = camera.getLatestResult();
 
@@ -249,27 +262,90 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public SwerveDrivePoseEstimator getPoseWithVision() {
+        if (result.hasTargets()) {
+            Optional<EstimatedRobotPose> optionalPose = photonPoseEstimator.update();
+            if (optionalPose.isPresent()) {
+                EstimatedRobotPose photonPose = optionalPose.get();
+                swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
+                        Timer.getMatchTime());
+            }
+        }
+        return swervePoseEstimator;
+    }
+
+    public Pose2d getPoseWithVision2d() {
+        return getPoseWithVision().getEstimatedPosition();
+    }
+
+    public Pose2d getAprilTagPose(int tag) {
+        aprilTagPose = aprilTagFieldLayout.getTagPose(tag);
+            if(aprilTagPose.isPresent()) {
+                aprilTagValM = aprilTagPose.get().toPose2d();
+            }
+        return aprilTagValM;
+    }
+
+    public void driveVision(double speedSup, boolean fieldRelative, boolean isOpenLoop)  {
+        if(getAllianceSide() == "Blue") {
+            aprilTagVals = getAprilTagPose(6);
+            robotDesiredPosition = getPoseWithVision2d();
+            drive(
+                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation().times(speedSup)).times(0.0000001), 
+                    robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees(), 
+                    fieldRelative, 
+                    isOpenLoop);
+        }
+        else if(getAllianceSide() == "Red") {
+            aprilTagVals = getAprilTagPose(5);
+            robotDesiredPosition = getPoseWithVision2d();
+            drive(
+                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation().times(speedSup)).times(0.0000001), 
+                    robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees(), 
+                    fieldRelative, 
+                    isOpenLoop);
+        }
+    }
+
+    public String getAllianceSide() {
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if(alliance.isPresent()) {
+            return alliance.get().toString();
+        }
+        else {
+            return "errorrrr";
+        }
+    }
+
     @Override
     public void periodic() {
         swervePoseEstimator.update(getYaw(), getModulePositions());
+        SmartDashboard.putNumber("Vision Swerve X", swervePoseEstimator.getEstimatedPosition().getX());
+        SmartDashboard.putNumber("Vision Swerve Y", swervePoseEstimator.getEstimatedPosition().getY());
 
         result = camera.getLatestResult();
 
-        if (result.hasTargets()) {
-                Optional<EstimatedRobotPose> optionalPose = photonPoseEstimator.update();
-                if (optionalPose.isPresent()) {
-                    EstimatedRobotPose photonPose = optionalPose.get();
+        getPoseWithVision();
 
-                    // Do your work with the PhotonVision data here
-                swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
-                    Timer.getMatchTime() - 0.03);
-                }
+        // Optional<EstimatedRobotPose> optionalPose2 = photonPoseEstimator.update();
+        // SmartDashboard.putNumber("Vision Pose X", optionalPose2.get().estimatedPose.getX());
+        // SmartDashboard.putNumber("Vision Pose Y", optionalPose2.get().estimatedPose.getY());
 
-        }
+        robotDesiredPosition = getPoseWithVision2d();
+        SmartDashboard.putNumber("Vision Translation X", robotDesiredPosition.getX());
+        SmartDashboard.putNumber("Vision Translation Y", robotDesiredPosition.getY());
+
+        Pose2d aprilTagSmart = getAprilTagPose(5);
+        SmartDashboard.putNumber("AprilTag Position X", aprilTagSmart.getX());
+        SmartDashboard.putNumber("AprilTag Position Y", aprilTagSmart.getY());
+
+        SmartDashboard.putString("Alliance", getAllianceSide());
+
         SmartDashboard.putNumber("Encoder Reading FL", mSwerveMods[0].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading FR", mSwerveMods[1].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading BL", mSwerveMods[2].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading BR", mSwerveMods[3].getAbsoluteEncoderRad());
+
         SmartDashboard.putString("Robot Yaw", this.getYaw().toString());
         SmartDashboard.putNumber("Robot Yaw2", this.getYaw2());
         SmartDashboard.putNumber("Robot Roll", this.getRoll());
