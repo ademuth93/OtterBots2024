@@ -41,23 +41,23 @@ public class TeleopSwerve extends Command {
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-        double speedControlVal = MathUtil.applyDeadband(speedControlSup.getAsDouble(), Constants.stickDeadband);
         boolean orientToTagVal = orientToTagSup.getAsBoolean();
         double gyroOffsetVal = gyroOffsetSup.getAsDouble();
+        double speedControlVal = MathUtil.applyDeadband(speedControlSup.getAsDouble(), Constants.stickDeadband);
 
-        if (speedControlVal < 0.2) {
+        if(speedControlVal < 0.2) {
             speedControlVal = 0.2;
         }
 
         sSwerve.setGyroOffset(gyroOffsetVal);
 
         if(orientToTagVal) {
-            sSwerve.driveVision(speedControlVal, !robotCentricSup.getAsBoolean(), true);
+            //sSwerve.driveVision(speedControlVal / 10, !robotCentricSup.getAsBoolean(), true);
 
         }
         else {
             sSwerve.drive(
-                    new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), // .times(speedControlVal)
+                    new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed).times(speedControlVal), // .times(speedControlVal)
                     rotationVal * Constants.Swerve.maxAngularVelocity,
                     !robotCentricSup.getAsBoolean(),
                     true);

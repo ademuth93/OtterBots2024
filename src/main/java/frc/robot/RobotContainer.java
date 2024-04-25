@@ -21,6 +21,7 @@ public class RobotContainer {
     private final Shooter sShooter = new Shooter();
     private final Lift sLift = new Lift();
     private final Climber sClimber = new Climber();
+    private final Wings sWings = new Wings();
 
     // Controllers
     private final XboxController driverController = new XboxController(2);
@@ -51,6 +52,9 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton liftExtender = new JoystickButton(operatorController, XboxController.Button.kB.value);
     private final JoystickButton liftRetractor = new JoystickButton(operatorController, XboxController.Button.kA.value);
+    private final JoystickButton deployDefense = new JoystickButton(operatorController, XboxController.Button.kY.value);
+    private final JoystickButton retractDefense = new JoystickButton(operatorController,
+            XboxController.Button.kX.value);
 
     // Autos : none
     private final SendableChooser<Command> autoChooser;
@@ -59,12 +63,8 @@ public class RobotContainer {
     public final Timer m_timer = new Timer();
     public double gyroOffset = 0.0;
 
-
-
     // The container for the robot. Contains subsystems, OI devices, and commands.
     public RobotContainer() {
-
-
 
         NamedCommands.registerCommand("NoteGrabberOn", sNoteGrabber.autoGrabberOnCommand());
         NamedCommands.registerCommand("NoteGrabberOut", sNoteGrabber.autoGrabberOutCommand());
@@ -82,7 +82,7 @@ public class RobotContainer {
                         s_Swerve,
                         () -> -driverController.getRawAxis(translationAxis),
                         () -> -driverController.getRawAxis(strafeAxis),
-                        () -> -driverController.getRawAxis(rotationAxis) / 2.0,
+                        () -> -driverController.getRawAxis(rotationAxis) / 1.5,
                         () -> robotCentric.getAsBoolean(),
                         () -> driverController.getRawAxis(speedControl),
                         () -> orientToTag.getAsBoolean(),
@@ -119,6 +119,14 @@ public class RobotContainer {
                         sLift,
                         liftExtender,
                         liftRetractor));
+
+        sWings.setDefaultCommand(
+                new TeleopWings(
+                        sWings, 
+                        deployDefense, 
+                        retractDefense)
+        );
+
     }
 
     private void configureButtonBindings() {

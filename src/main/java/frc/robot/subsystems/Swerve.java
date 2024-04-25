@@ -268,7 +268,7 @@ public class Swerve extends SubsystemBase {
             if (optionalPose.isPresent()) {
                 EstimatedRobotPose photonPose = optionalPose.get();
                 swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
-                        Timer.getMatchTime());
+                        Timer.getMatchTime() - 0.03);
             }
         }
         return swervePoseEstimator;
@@ -291,8 +291,8 @@ public class Swerve extends SubsystemBase {
             aprilTagVals = getAprilTagPose(6);
             robotDesiredPosition = getPoseWithVision2d();
             drive(
-                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation().times(speedSup)).times(0.0000001), 
-                    robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees(), 
+                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
+                    (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
                     fieldRelative, 
                     isOpenLoop);
         }
@@ -300,8 +300,8 @@ public class Swerve extends SubsystemBase {
             aprilTagVals = getAprilTagPose(5);
             robotDesiredPosition = getPoseWithVision2d();
             drive(
-                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation().times(speedSup)).times(0.0000001), 
-                    robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees(), 
+                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
+                    (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
                     fieldRelative, 
                     isOpenLoop);
         }
@@ -327,9 +327,8 @@ public class Swerve extends SubsystemBase {
 
         getPoseWithVision();
 
-        // Optional<EstimatedRobotPose> optionalPose2 = photonPoseEstimator.update();
-        // SmartDashboard.putNumber("Vision Pose X", optionalPose2.get().estimatedPose.getX());
-        // SmartDashboard.putNumber("Vision Pose Y", optionalPose2.get().estimatedPose.getY());
+        SmartDashboard.putNumber("Vision Vision X", getPoseWithVision2d().getX());
+        SmartDashboard.putNumber("Vision Vision Y", getPoseWithVision2d().getY());
 
         robotDesiredPosition = getPoseWithVision2d();
         SmartDashboard.putNumber("Vision Translation X", robotDesiredPosition.getX());

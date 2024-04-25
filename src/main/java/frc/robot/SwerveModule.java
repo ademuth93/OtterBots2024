@@ -8,7 +8,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
+import edu.wpi.first.wpilibj.Timer;
 import frc.lib.util.CTREModuleState;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -177,6 +177,7 @@ public class SwerveModule {
         angleController.setFF(Constants.Swerve.angleKFF);
         angleMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
         angleMotor.burnFlash();
+        Timer.delay(1.0);
         resetToAbsolute();
     }
 
