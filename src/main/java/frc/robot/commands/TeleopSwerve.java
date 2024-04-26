@@ -34,12 +34,15 @@ public class TeleopSwerve extends Command {
     @Override
     public void execute() {
         // Get values for everything, and set
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-        double speedControlVal = MathUtil.applyDeadband(speedControlSup.getAsDouble(), Constants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(),
+                Constants.JoystickConstants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.JoystickConstants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(),
+                Constants.JoystickConstants.stickDeadband);
+        double speedControlVal = MathUtil.applyDeadband(speedControlSup.getAsDouble(),
+                Constants.JoystickConstants.stickDeadband);
 
-        if (speedControlVal < 0.2) {
+        if (speedControlVal < Constants.JoystickConstants.stickDeadband2) {
             speedControlVal = 0.2;
         }
 

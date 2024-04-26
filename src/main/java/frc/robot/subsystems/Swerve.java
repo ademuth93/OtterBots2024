@@ -23,7 +23,7 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         gyro = new AHRS(SPI.Port.kMXP);
-        gyroOffset = 0.0;
+        gyroOffset = Constants.Swerve.gyroOffset;
         zeroGyro();
 
         mSwerveMods = new SwerveModule[] {
@@ -35,7 +35,8 @@ public class Swerve extends SubsystemBase {
 
         resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYawRot2d(), getModulePositions());
+        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYawRot2d(),
+                getModulePositions());
     }
 
     // Method called in TeleopSwerve to drive in teleop

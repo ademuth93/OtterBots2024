@@ -13,7 +13,7 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
 
     // Controllers
-    private final XboxController driverController = new XboxController(2);
+    private final XboxController driverController = new XboxController(Constants.JoystickConstants.joystickPort);
 
     // Driver Controls
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -28,7 +28,6 @@ public class RobotContainer {
     private final JoystickButton targetLock = new JoystickButton(driverController, XboxController.Button.kA.value);
 
     // Others
-    public double gyroOffset = 0.0;
 
     // The container for the robot. Contains subsystems, OI devices, and commands.
     public RobotContainer() {
@@ -53,7 +52,6 @@ public class RobotContainer {
 
     public void zeroGyro() {
         s_Swerve.zeroGyro();
-        gyroOffset = 0;
     }
 
     public Command getAutonomousCommand() {

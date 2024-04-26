@@ -73,7 +73,8 @@ public class SwerveModule {
         lastAngle = getState().angle;
     }
 
-    // Sets the module to the state it wants to, using the setAngle and setSpeed methods
+    // Sets the module to the state it wants to, using the setAngle and setSpeed
+    // methods
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
         desiredState = CTREModuleState.optimize(desiredState, getState().angle);
         setAngle(desiredState);
@@ -105,7 +106,7 @@ public class SwerveModule {
         lastAngle = angle;
     }
 
-    // 
+    //
     public double makePositiveDegrees(double angle) {
         // Take arbitrary angle and calculate its equvalent in 0-360 degree range
         double degrees = angle;
@@ -116,7 +117,7 @@ public class SwerveModule {
         return degrees;
     }
 
-    // Makes the degrees positive.  Not sure why yet
+    // Makes the degrees positive. Not sure why yet
     public double makePositiveDegrees(Rotation2d angle) {
         return makePositiveDegrees(angle.getDegrees());
     }
@@ -131,15 +132,17 @@ public class SwerveModule {
 
         double difference = steerAngle - oldAngle.getDegrees();
 
-        // Change the target angle so the difference is in the range [-360, 360) instead of [0, 360)
+        // Change the target angle so the difference is in the range [-360, 360) instead
+        // of [0, 360)
         if (difference >= 360) {
             steerAngle -= 360;
         } else if (difference < -360) {
             steerAngle += 360;
         }
-        difference = steerAngle - oldAngle.getDegrees();    
-        
-        // If the difference is greater than 90 deg or less than -90 deg the drive can be inverted so the total
+        difference = steerAngle - oldAngle.getDegrees();
+
+        // If the difference is greater than 90 deg or less than -90 deg the drive can
+        // be inverted so the total
         // movement of the module is less than 90 deg
         if (difference > 90 || difference < -90) {
             steerAngle += 180;
@@ -148,7 +151,7 @@ public class SwerveModule {
         return Rotation2d.fromDegrees(makePositiveDegrees(steerAngle));
     }
 
-    // Gets the angle of the 
+    // Gets the angle of the
     private Rotation2d getAngle() {
         return Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
     }
