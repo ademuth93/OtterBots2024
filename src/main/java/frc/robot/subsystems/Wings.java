@@ -15,12 +15,9 @@ public class Wings extends SubsystemBase {
         deploySolenoid = new Solenoid(2, PneumaticsModuleType.CTREPCM, 0);
     }
 
-    public void defaultExtendControl(boolean isdefenseUp) {
-        extendSolenoid.set(isdefenseUp);
-        retractSolenoid.set(isdefenseUp);
-    }
-
-    public void defaultDeployControl(boolean areWingsDeployed) {
-        deploySolenoid.set(areWingsDeployed);
+    public void defaultControl(boolean isDefenseUp, boolean areWingsUp) {
+        extendSolenoid.set(isDefenseUp);
+        retractSolenoid.set(isDefenseUp);
+        deploySolenoid.set(areWingsUp);
     }
 }

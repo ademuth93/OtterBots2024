@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+// import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
+// import org.photonvision.EstimatedRobotPose;
+// import org.photonvision.PhotonCamera;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -35,7 +35,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
+// import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -50,7 +50,7 @@ public class Swerve extends SubsystemBase {
     private final AHRS gyro;
     private double gyroOffset;
 
-    PhotonCamera camera = new PhotonCamera("photonvision");
+    // PhotonCamera camera = new PhotonCamera("photonvision");
 
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
@@ -90,14 +90,14 @@ public class Swerve extends SubsystemBase {
                 getYaw(),
                 getModulePositions(), new Pose2d(0.0, 0.0, new Rotation2d(0.0, 0.0)));
 
-        photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-                camera, robotToCamera);
+        // photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+        //         camera, robotToCamera);
 
-        photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        // photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         aprilTagFieldLayout.setOrigin(OriginPosition.kBlueAllianceWallRightSide);
 
-        result = camera.getLatestResult();
+        // result = camera.getLatestResult();
 
         AutoBuilder.configureHolonomic(
                 this::getPose,
@@ -120,7 +120,7 @@ public class Swerve extends SubsystemBase {
                 this);
     }
 
-    // Drive. Used in teleopSwerve
+    // Drive. Used in TeleopSwerve
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -262,83 +262,83 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public SwerveDrivePoseEstimator getPoseWithVision() {
-        if (result.hasTargets()) {
-            Optional<EstimatedRobotPose> optionalPose = photonPoseEstimator.update();
-            if (optionalPose.isPresent()) {
-                EstimatedRobotPose photonPose = optionalPose.get();
-                swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
-                        Timer.getMatchTime() - 0.03);
-            }
-        }
-        return swervePoseEstimator;
-    }
+    // public SwerveDrivePoseEstimator getPoseWithVision() {
+    //     if (result.hasTargets()) {
+    //         Optional<EstimatedRobotPose> optionalPose = photonPoseEstimator.update();
+    //         if (optionalPose.isPresent()) {
+    //             EstimatedRobotPose photonPose = optionalPose.get();
+    //             swervePoseEstimator.addVisionMeasurement(photonPose.estimatedPose.toPose2d(),
+    //                     Timer.getMatchTime() - 0.03);
+    //         }
+    //     }
+    //     return swervePoseEstimator;
+    // }
 
-    public Pose2d getPoseWithVision2d() {
-        return getPoseWithVision().getEstimatedPosition();
-    }
+    // public Pose2d getPoseWithVision2d() {
+    //     return getPoseWithVision().getEstimatedPosition();
+    // }
 
-    public Pose2d getAprilTagPose(int tag) {
-        aprilTagPose = aprilTagFieldLayout.getTagPose(tag);
-            if(aprilTagPose.isPresent()) {
-                aprilTagValM = aprilTagPose.get().toPose2d();
-            }
-        return aprilTagValM;
-    }
+    // public Pose2d getAprilTagPose(int tag) {
+    //     aprilTagPose = aprilTagFieldLayout.getTagPose(tag);
+    //         if(aprilTagPose.isPresent()) {
+    //             aprilTagValM = aprilTagPose.get().toPose2d();
+    //         }
+    //     return aprilTagValM;
+    // }
 
-    public void driveVision(double speedSup, boolean fieldRelative, boolean isOpenLoop)  {
-        if(getAllianceSide() == "Blue") {
-            aprilTagVals = getAprilTagPose(6);
-            robotDesiredPosition = getPoseWithVision2d();
-            drive(
-                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
-                    (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
-                    fieldRelative, 
-                    isOpenLoop);
-        }
-        else if(getAllianceSide() == "Red") {
-            aprilTagVals = getAprilTagPose(5);
-            robotDesiredPosition = getPoseWithVision2d();
-            drive(
-                    robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
-                    (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
-                    fieldRelative, 
-                    isOpenLoop);
-        }
-    }
+    // public void driveVision(double speedSup, boolean fieldRelative, boolean isOpenLoop)  {
+    //     if(getAllianceSide() == "Blue") {
+    //         aprilTagVals = getAprilTagPose(6);
+    //         robotDesiredPosition = getPoseWithVision2d();
+    //         drive(
+    //                 robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
+    //                 (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
+    //                 fieldRelative, 
+    //                 isOpenLoop);
+    //     }
+    //     else if(getAllianceSide() == "Red") {
+    //         aprilTagVals = getAprilTagPose(5);
+    //         robotDesiredPosition = getPoseWithVision2d();
+    //         drive(
+    //                 robotDesiredPosition.getTranslation().minus(aprilTagVals.getTranslation()).times(speedSup), // .times(0.0000001)
+    //                 (robotDesiredPosition.getRotation().getDegrees() - aprilTagVals.getRotation().getDegrees()) * speedSup, 
+    //                 fieldRelative, 
+    //                 isOpenLoop);
+    //     }
+    // }
 
-    public String getAllianceSide() {
-        Optional<Alliance> alliance = DriverStation.getAlliance();
-        if(alliance.isPresent()) {
-            return alliance.get().toString();
-        }
-        else {
-            return "errorrrr";
-        }
-    }
+    // public String getAllianceSide() {
+    //     Optional<Alliance> alliance = DriverStation.getAlliance();
+    //     if(alliance.isPresent()) {
+    //         return alliance.get().toString();
+    //     }
+    //     else {
+    //         return "errorrrr";
+    //     }
+    // }
 
     @Override
     public void periodic() {
         swervePoseEstimator.update(getYaw(), getModulePositions());
-        SmartDashboard.putNumber("Vision Swerve X", swervePoseEstimator.getEstimatedPosition().getX());
-        SmartDashboard.putNumber("Vision Swerve Y", swervePoseEstimator.getEstimatedPosition().getY());
+        // SmartDashboard.putNumber("Vision Swerve X", swervePoseEstimator.getEstimatedPosition().getX());
+        // SmartDashboard.putNumber("Vision Swerve Y", swervePoseEstimator.getEstimatedPosition().getY());
 
-        result = camera.getLatestResult();
+        // result = camera.getLatestResult();
 
-        getPoseWithVision();
+        // getPoseWithVision();
 
-        SmartDashboard.putNumber("Vision Vision X", getPoseWithVision2d().getX());
-        SmartDashboard.putNumber("Vision Vision Y", getPoseWithVision2d().getY());
+        // SmartDashboard.putNumber("Vision Vision X", getPoseWithVision2d().getX());
+        // SmartDashboard.putNumber("Vision Vision Y", getPoseWithVision2d().getY());
 
-        robotDesiredPosition = getPoseWithVision2d();
-        SmartDashboard.putNumber("Vision Translation X", robotDesiredPosition.getX());
-        SmartDashboard.putNumber("Vision Translation Y", robotDesiredPosition.getY());
+        // robotDesiredPosition = getPoseWithVision2d();
+        // SmartDashboard.putNumber("Vision Translation X", robotDesiredPosition.getX());
+        // SmartDashboard.putNumber("Vision Translation Y", robotDesiredPosition.getY());
 
-        Pose2d aprilTagSmart = getAprilTagPose(5);
-        SmartDashboard.putNumber("AprilTag Position X", aprilTagSmart.getX());
-        SmartDashboard.putNumber("AprilTag Position Y", aprilTagSmart.getY());
+        // Pose2d aprilTagSmart = getAprilTagPose(5);
+        // SmartDashboard.putNumber("AprilTag Position X", aprilTagSmart.getX());
+        // SmartDashboard.putNumber("AprilTag Position Y", aprilTagSmart.getY());
 
-        SmartDashboard.putString("Alliance", getAllianceSide());
+        // SmartDashboard.putString("Alliance", getAllianceSide());
 
         SmartDashboard.putNumber("Encoder Reading FL", mSwerveMods[0].getAbsoluteEncoderRad());
         SmartDashboard.putNumber("Encoder Reading FR", mSwerveMods[1].getAbsoluteEncoderRad());

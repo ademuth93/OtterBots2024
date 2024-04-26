@@ -2,47 +2,62 @@ package frc.robot.commands;
 
 import java.util.function.BooleanSupplier;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Wings;
 
 public class TeleopWings extends Command {
     private Wings sWings;
-    private BooleanSupplier buttonUp;
-    private BooleanSupplier buttonDown;
 
-    private boolean lastState;
-    private boolean defenseUp;
-    private boolean defenseDown;
+    private BooleanSupplier deployUp;
+    private BooleanSupplier deployDown;
+    private BooleanSupplier wingsUp;
+    private BooleanSupplier wingsDown;
 
-    public TeleopWings(Wings sWings, BooleanSupplier buttonUp, BooleanSupplier buttonDown) {
+    private boolean defenseLastState;
+    private boolean wingsLastState;
+    private boolean setDefense;
+    private boolean setWings;
+
+    public TeleopWings(Wings sWings, BooleanSupplier deployUp, BooleanSupplier deployDown, BooleanSupplier wingsUp, BooleanSupplier wingsDown) {
         this.sWings = sWings;
-        this.buttonUp = buttonUp;
-        this.buttonDown = buttonDown;
+        this.deployUp = deployUp;
+        this.deployDown = deployDown;
+        this.wingsUp = wingsUp;
+        this.wingsDown = wingsDown;
 
-        this.lastState = false;
+        this.defenseLastState = false;
+        this.wingsLastState = false;
+        this.setDefense = false;
+        this.setWings = false;
 
         addRequirements(sWings);
     }
 
     @Override
     public void execute() {
-        defenseUp = buttonUp.getAsBoolean();
-        defenseDown = buttonDown.getAsBoolean();
-
-        if (defenseUp) {
-            lastState = true;
-            sWings.defaultExtendControl(true);
-            Timer.delay(5);
-            sWings.defaultDeployControl(true);
-        } else if (defenseDown) {
-            lastState = false;
-            sWings.defaultDeployControl(false);
-            Timer.delay(5);
-            sWings.defaultExtendControl(false);
-        } else {
-            sWings.defaultExtendControl(lastState);
-            sWings.defaultDeployControl(lastState);
+        if(deployUp.getAsBoolean()) {
+            setDefense = true;
+            defenseLastState = true;
         }
+        else if(deployDown.getAsBoolean()) {
+            setDefense = false;
+            defenseLastState = false;
+        }
+        else {
+            setDefense = defenseLastState;
+        }
+
+        if(wingsUp.getAsBoolean()) {
+            setWings = true;
+            wingsLastState = true;
+        }
+        else if(wingsDown.getAsBoolean()) {
+            setWings = false;
+            wingsLastState = false;
+        }
+        else {
+            setWings = wingsLastState;
+        }
+        sWings.defaultControl(setDefense, setWings);
     }
 }

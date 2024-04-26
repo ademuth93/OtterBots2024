@@ -55,7 +55,9 @@ public class RobotContainer {
     private final JoystickButton deployDefense = new JoystickButton(operatorController, XboxController.Button.kY.value);
     private final JoystickButton retractDefense = new JoystickButton(operatorController,
             XboxController.Button.kX.value);
-
+    private final JoystickButton deployWings = new JoystickButton(operatorController, XboxController.Button.kStart.value);
+    private final JoystickButton retractWings = new JoystickButton(operatorController, XboxController.Button.kBack.value);
+    
     // Autos : none
     private final SendableChooser<Command> autoChooser;
 
@@ -124,7 +126,9 @@ public class RobotContainer {
                 new TeleopWings(
                         sWings, 
                         deployDefense, 
-                        retractDefense)
+                        retractDefense, 
+                        deployWings, 
+                        retractWings)
         );
 
     }
